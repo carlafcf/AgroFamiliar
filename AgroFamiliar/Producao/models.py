@@ -5,8 +5,13 @@ class Producao(models.Model):
     observacao = models.TextField(verbose_name="Observação")
     # fazenda = models.ForeignKey('Fazenda', on_delete=models.RESTRICT)
 
-    # def __str__(self):
-    #     return self.nome
+    def __str__(self):
+        return self.nome
     
-    # class Meta:
-    #     ordering = ['nome']
+    class Meta:
+        ordering = ['nome']
+
+# class Relatorio(models.Model):
+#     ...
+#     producao = models.ForeignKey('Producao', on_delete=models.RESTRICT)
+
