@@ -15,3 +15,9 @@ class Producao(models.Model):
 #     ...
 #     producao = models.ForeignKey('Producao', on_delete=models.RESTRICT)
 
+    # def __str__(self):
+    #     return self.data
+    
+    # class Meta:
+    #     ordering = ['-data']
+
