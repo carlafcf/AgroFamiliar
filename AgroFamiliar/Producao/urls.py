@@ -7,6 +7,8 @@
 from django.urls import path
 from Producao import views
 
+app_name = "producao"
+
 urlpatterns = [
     path('criar/', views.CriarProducao.as_view(), name='criar'),
     path('listar/', views.listar_producao, name='listar'),
