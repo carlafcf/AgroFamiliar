@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Producao</title>
-</head>
-<body>
-    <h1>Nova produção</h1>
+{% extends "Base/base.html" %}
 
+{% block titulo %}
+    Nova produção
+{% endblock %}
+
+{% block conteudo %}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Cadastrar">
+        <input class="btn btn-primary" type="submit" value="Cadastrar">
     </form>
-
-
-</body>
-</html>
+{% endblock %}
