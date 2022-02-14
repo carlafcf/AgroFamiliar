@@ -10,6 +10,8 @@ class Producao(models.Model):
     
     class Meta:
         ordering = ['nome']
+        verbose_name = "Produção"
+        verbose_name_plural = "Produções"
 
 # class Relatorio(models.Model):
 #     ...
