@@ -1,0 +1,12 @@
+{% extends "Base/base.html" %}
+
+{% load bootstrap5 %}
+
+{% block titulo %}
+    Produção: {{ producao.nome }}
+{% endblock %}
+
+{% block conteudo %}
+    <p>Nome: {{ producao.nome }}</p>
+    <p>Observação: {{ producao.observacao }}</p>
+{% endblock %}

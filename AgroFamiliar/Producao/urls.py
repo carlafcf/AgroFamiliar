@@ -12,7 +12,7 @@ app_name = "producao"
 urlpatterns = [
     path('criar/', views.CriarProducao.as_view(), name='criar'),
     path('listar/', views.listar_producao, name='listar'),
-    # path('editar/<int:pk>', Home.as_view(), name='editar'),
-    # path('deletar/<int:pk>', Home.as_view(), name='deletar'),
-    # path('detalhes/<int:pk>', Home.as_view(), name='detalhes'),
+    path('editar/<int:pk>', views.EditarProducao.as_view(), name='editar'),
+    path('desativar/<int:pk>', views.desativar_producao, name='desativar'),
+    path('detalhes/<int:pk>', views.detalhes_producao, name='detalhes'),
 ]

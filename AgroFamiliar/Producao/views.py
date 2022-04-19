@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from Producao.models import Producao
 
@@ -12,11 +12,31 @@ class CriarProducao(CreateView):
 
     # form
 
+class EditarProducao(UpdateView):
+    model = Producao
+    fields = ['nome', 'observacao']
+    template_name = 'Producao/editar.html'
+    success_url = reverse_lazy('producao:listar')
+
+    # form
+
 def listar_producao(request):
-    lista_producoes = Producao.objects.all()
+    lista_producoes = Producao.objects.filter(ativo=True)
 
     informacoes = {
         'lista' : lista_producoes
     }
 
     return render(request, "Producao/listar.html", informacoes)
+
+def detalhes_producao(request, pk):
+    producao = Producao.objects.filter(pk=pk)[0]
+
+    informacoes = {
+        'producao': producao
+    }
+
+    return render(request, "Producao/detalhes.html", informacoes)
+
+def desativar_producao(request, pk):
+    pass

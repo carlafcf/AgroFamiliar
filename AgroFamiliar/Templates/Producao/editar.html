@@ -1,0 +1,15 @@
+{% extends "Base/base.html" %}
+
+{% load bootstrap5 %}
+
+{% block titulo %}
+    Editar produção
+{% endblock %}
+
+{% block conteudo %}
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input class="btn btn-primary" type="submit" value="Atualizar">
+    </form>
+{% endblock %}
