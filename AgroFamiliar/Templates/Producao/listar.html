@@ -1,19 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar</title>
-</head>
-<body>
-    <h1>Todas as produções</h1>
+{% extends "Base/base.html" %}
 
-    {{ lista }}
+{% block titulo %}
+    Minhas produções
+{% endblock %}
 
-    {% for item in lista %}
-        <p>{{item}} - {{item.observacao}}</p>
-    {% endfor %}
+{% block conteudo %}
+<table id="tabela_producoes" class="table" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th class="th-sm">Nome</th>
+        <th class="th-sm">Observação</th>
+        <th class="th-sm"></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for producao in lista %}
+            <tr id="usuario_{{usuario.pk}}">
+                <td> {{producao.nome}} </td>
+                <td> {{producao.observacao}} </td>
+                <td align="center">
+                    <button type="submit" class="btn btn-success btn-circle btn-lg" title="Visualizar" >
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-circle btn-lg" title="Editar" >
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button type="submit" class="btn btn-danger btn-circle btn-lg" title="Deletar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
 
-</body>
-</html>
+{% block scripts %}
+<script>
+$(document).ready(function () {
+    $('#tabela_producoes').DataTable( {
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+        },
+        "columnDefs": [ {
+          "targets": 2,
+          "orderable": false
+          } ]
+    } );
+  });
+</script>
+{% endblock %}

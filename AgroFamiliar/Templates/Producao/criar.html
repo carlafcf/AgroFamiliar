@@ -1,5 +1,7 @@
 {% extends "Base/base.html" %}
 
+{% load bootstrap5 %}
+
 {% block titulo %}
     Nova produção
 {% endblock %}
@@ -7,7 +9,7 @@
 {% block conteudo %}
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% bootstrap_form form %}
         <input class="btn btn-primary" type="submit" value="Cadastrar">
     </form>
 {% endblock %}

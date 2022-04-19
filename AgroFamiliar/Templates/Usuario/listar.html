@@ -1,0 +1,106 @@
+{% extends "Base/base.html" %}
+
+{% block titulo %}
+    Usuários
+    {% if not ativo %}
+      inativos
+    {% endif %}
+{% endblock %}
+
+{% block conteudo %}
+<table id="tabela_usuario" class="table" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th class="th-sm">Nome</th>
+        <th class="th-sm">Endereço</th>
+        <th class="th-sm">Cidade/Estado</th>
+        <th class="th-sm"></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for usuario in lista_usuarios %}
+            <tr id="usuario_{{usuario.pk}}">
+                <td>
+                  {% if usuario.is_superuser %}
+                    <i id="superuser_{{usuario.pk}}" class="fa-solid fa-gear" style="color:#1cbb8c" title="Administrador"></i>
+                  {% else %}
+                    <i id="superuser_{{usuario.pk}}" class="fa-solid fa-gear" style="color:#1cbb8c; visibility:hidden" title="Administrador"></i>
+                  {% endif %}
+                  {{usuario}}
+                </td>
+                <td>{{usuario.endereco}}</td>
+                <td>{{usuario.cidade}}/{{usuario.estado}}</td>
+                <td align="center">
+                  {% if ativo %}
+                    <button type="submit" class="btn btn-primary btn-circle btn-lg" title="Editar" >
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button type="submit" class="btn btn-success btn-circle btn-lg" title="Tornar admin" onclick="mudar_status_admin({{usuario.pk}})">
+                      <i class="fa-solid fa-user-gear"></i>
+                    </button>
+                    <button type="submit" class="btn btn-danger btn-circle btn-lg" title="Desabilitar" onclick="mudar_status({{usuario.pk}})">
+                      <i class="fa-solid fa-user-slash"></i>
+                    </button>
+                  {% else %}
+                    <button type="submit" class="btn btn-success btn-circle btn-lg" title="Habilitar usuário" onclick="mudar_status({{usuario.pk}})">
+                      <i class="fa-solid fa-user"></i>
+                    </button>
+                  {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+  {% if ativo %}
+    <a href="{% url 'usuario:listar' ativo=0 %}">Listar usuários inativos</a>
+  {% else %}
+  <a href="{% url 'usuario:listar' ativo=1 %}">Listar usuários ativos</a>
+  {% endif %}
+
+  
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function () {
+    $('#tabela_usuario').DataTable( {
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+        },
+        "columnDefs": [ {
+          "targets": 3,
+          "orderable": false
+          } ]
+    } );
+  });
+</script>
+
+<script>
+function mudar_status(pk){
+  $.ajax({
+      url : "mudar_status/", // the endpoint
+      type : "GET", // http method
+      data : { pk : pk }, // data sent with the get request
+  });
+  var usuario = "usuario_" + pk;
+  var row = document.getElementById(usuario);
+  row.parentNode.removeChild(row);
+};
+
+function mudar_status_admin(pk){
+  $.ajax({
+      url : "mudar_status_admin/", // the endpoint
+      type : "GET", // http method
+      data : { pk : pk }, // data sent with the get request
+  });
+  var id = "superuser_"+pk
+  if (document.getElementById(id).style.visibility === 'hidden') {
+    document.getElementById(id).style.visibility = 'visible';
+  }
+  else {
+    document.getElementById(id).style.visibility = 'hidden';
+  }
+};
+</script>
+{% endblock %}

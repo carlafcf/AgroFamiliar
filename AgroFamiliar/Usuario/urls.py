@@ -10,8 +10,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     path('cadastrar/', views.Cadastrar.as_view(), name="cadastrar"),
     # path('editar/<int:pk>', views.Editar.as_view(), name = 'editar'),
-    # path('listar_ativos/', views.listar_ativos, name='listar_ativos'),
-    # path('listar_inativos/', views.listar_inativos, name='listar_inativos'),
-    # path('mudar_status/<int:pk>', views.mudar_status, name='mudar_status'),
-    # path('mudar_status_admin/<int:pk>', views.mudar_status_admin, name='mudar_status_admin'),
+    path('listar/<int:ativo>', views.listar, name='listar'),
+    path('listar/mudar_status/', views.mudar_status, name='mudar_status'),
+    path('listar/mudar_status_admin/', views.mudar_status_admin, name='mudar_status_admin'),
 ]
