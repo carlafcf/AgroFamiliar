@@ -1,71 +1,101 @@
 {% extends "Base/base.html" %}
 
 {% block titulo %}
-    Minhas produções
+    Listar produções
+{% endblock %}
+
+{% block diretorio_raiz %}
+    Fazenda
+{% endblock %}
+
+{% block diretorio %}
+    Produção
 {% endblock %}
 
 {% block conteudo %}
-<table id="tabela_producoes" class="table" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th class="th-sm">Nome</th>
-        <th class="th-sm">Observação</th>
-        <th class="th-sm"></th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for producao in lista %}
-            <tr id="usuario_{{usuario.pk}}">
-                <td> {{producao.nome}} </td>
-                <td> {{producao.observacao}} </td>
-                <td align="center">
-                    <a type="submit" class="btn btn-success btn-circle btn-lg" title="Visualizar" href="{% url 'producao:detalhes' pk=producao.id %}">
-                      <i class="fa-solid fa-pen"></i>
-                    </a>
-                    <a type="submit" class="btn btn-primary btn-circle btn-lg" title="Editar" href="{% url 'producao:editar' pk=producao.id %}">
-                      <i class="fa-solid fa-pen"></i>
-                    </a>
-                    <a class="btn btn-danger btn-circle btn-lg" data-toggle="modal" data-target="#modal-{{producao.pk}}" data-tt="tooltip" title="Deletar">
-                      <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                    </a>
 
-                    <div class="modal fade" id="modal-{{producao.pk}}" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header" style="background-color: rgb(8, 121, 31);">
-                                    <h5 class="modal-title" id=""><strong><font color="white">Desativar produção</font></strong></h5>
-                                    <button class="close" data-dismiss="modal" aria-label="Cerrar">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-6">
-                                                <p><strong>Você tem certeza que deseja desativar a seguinte produção:</strong></p>
-                                                <p>Nome: {{ producao.nome }}</p>
+<div class="row">
+    <div class="col-12">
+      <div class="card my-4">
+          <div class="container">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-success shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">Produções</h6>
+            </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0" id="tabela_producoes">
+                <thead>
+                    <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nome</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Observação</th>
+                    <th class="text-center text-secondary opacity-7"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producao in lista %}
+                        <tr id="producao_{{producao.pk}}">
+                            <td> <h6 class="mb-0 text-sm">{{producao.nome}}</h6></td>
+                            <td> <p class="text-xs font-weight-bold mb-0">{{producao.observacao}}</p> </td>
+                            <td align="center">
+                                <a type="submit" href="{% url 'producao:detalhes' pk=producao.id %}">
+                                    <!-- <i class="material-icons opacity-10">search</i> -->
+                                    <i class="material-icons ms-auto text-success cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar">search</i>
+                                </a>
+                                <a type="submit" href="{% url 'producao:editar' pk=producao.id %}">
+                                    <!-- <i class="material-icons opacity-10">edit</i> -->
+                                    <i class="material-icons ms-auto text-info cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">edit</i>
+                                </a>
+                                <a data-toggle="modal" data-target="#modal-{{producao.pk}}" data-tt="tooltip">
+                                    <!-- <i class="material-icons opacity-10">delete</i> -->
+                                    <i class="material-icons ms-auto text-danger cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover">delete</i>
+                                </a>
+            
+                                <div class="modal fade" id="modal-{{producao.pk}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="background-color: rgb(8, 121, 31);">
+                                                <h5 class="modal-title" id=""><strong><font color="white">Desativar produção</font></strong></h5>
+                                                <button class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6">
+                                                            <p><strong>Você tem certeza que deseja desativar a seguinte produção:</strong></p>
+                                                            <p>Nome: {{ producao.nome }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+            
+                                            <div class="modal-footer" style="background-color: rgb(19, 113, 66);">
+                                                <form action="{% url 'producao:desativar' pk=producao.pk %}" method="POST">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="next" value="{{request.path}}">
+                                                        <button class="btn btn-danger">Desativar</button>
+                                                </form>
+                                                <button class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+            
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="modal-footer" style="background-color: rgb(19, 113, 66);">
-                                    <form action="{% url 'producao:desativar' pk=producao.pk %}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="next" value="{{request.path}}">
-                                            <button class="btn btn-danger">Desativar</button>
-                                    </form>
-                                    <button class="btn btn-dark" data-dismiss="modal">Cancelar</button>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
+            
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </table>
 {% endblock %}
 
