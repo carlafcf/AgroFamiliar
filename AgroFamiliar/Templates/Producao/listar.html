@@ -47,19 +47,19 @@
                                     <!-- <i class="material-icons opacity-10">edit</i> -->
                                     <i class="material-icons ms-auto text-info cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">edit</i>
                                 </a>
-                                <a data-toggle="modal" data-target="#modal-{{producao.pk}}" data-tt="tooltip">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-{{producao.pk}}">
                                     <!-- <i class="material-icons opacity-10">delete</i> -->
                                     <i class="material-icons ms-auto text-danger cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover">delete</i>
                                 </a>
             
                                 <div class="modal fade" id="modal-{{producao.pk}}" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header" style="background-color: rgb(8, 121, 31);">
+                                            <div class="modal-header bg-gradient-success">
                                                 <h5 class="modal-title" id=""><strong><font color="white">Desativar produção</font></strong></h5>
-                                                <button class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                <!-- <button class="close" data-dismiss="modal" aria-label="Cerrar">
                                                     <span aria-hidden="true">&times;</span>
-                                                </button>
+                                                </button> -->
                                             </div>
                                             <div class="modal-body">
                                                 <div class="container-fluid">
@@ -72,12 +72,8 @@
                                                 </div>
                                             </div>
             
-                                            <div class="modal-footer" style="background-color: rgb(19, 113, 66);">
-                                                <form action="{% url 'producao:desativar' pk=producao.pk %}" method="POST">
-                                                        {% csrf_token %}
-                                                        <input type="hidden" name="next" value="{{request.path}}">
-                                                        <button class="btn btn-danger">Desativar</button>
-                                                </form>
+                                            <div class="modal-footer bg-gradient-success">
+                                                <button class="btn bg-gradient-danger" onclick="desativar({{producao.pk}})">Desativar</button>
                                                 <button class="btn btn-dark" data-dismiss="modal">Cancelar</button>
             
                                             </div>
@@ -100,6 +96,7 @@
 {% endblock %}
 
 {% block scripts %}
+
 <script>
 $(document).ready(function () {
     $('#tabela_producoes').DataTable( {
@@ -112,5 +109,19 @@ $(document).ready(function () {
           } ]
     } );
   });
+
+function desativar(pk){
+    $.ajax({
+        url : "desativar/", // the endpoint
+        type : "GET", // http method
+        data : { pk : pk }, // data sent with the get request
+    });
+    var producao = "producao_" + pk;
+    var row = document.getElementById(producao);
+    row.parentNode.removeChild(row);
+    var modal_id = "#modal-" + pk;
+    var modal = document.getElementById(modal_id);
+    modal.parentNode.removeChild(modal)
+};
 </script>
 {% endblock %}

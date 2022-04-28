@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+import json
+
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 
@@ -38,5 +41,16 @@ def detalhes_producao(request, pk):
 
     return render(request, "Producao/detalhes.html", informacoes)
 
-def desativar_producao(request, pk):
-    pass
+def desativar_producao(request):
+    print("Desativando...")
+    pk = request.GET.get('pk')
+    producao = Producao.objects.get(pk=pk)
+    producao.ativo = False
+    producao.save()
+    
+    response_data = 'successful!'
+
+    return HttpResponse(
+        json.dumps(response_data),
+        content_type="application/json"
+    )

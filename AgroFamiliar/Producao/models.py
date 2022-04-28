@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from django.db import models
 
 class Producao(models.Model):
@@ -13,6 +14,11 @@ class Producao(models.Model):
         ordering = ['nome']
         verbose_name = "Produção"
         verbose_name_plural = "Produções"
+    
+# class Plantio(models.Model):
+#     data_inicio
+#     quantidade
+#     producao = models.ForeignKey('Producao', on_delete=models.RESTRICT)
 
 # class Relatorio(models.Model):
 #     ...
