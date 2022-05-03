@@ -15,10 +15,18 @@ class Producao(models.Model):
         verbose_name = "Produção"
         verbose_name_plural = "Produções"
     
-# class Plantio(models.Model):
-#     data_inicio
-#     quantidade
-#     producao = models.ForeignKey('Producao', on_delete=models.RESTRICT)
+class Plantio(models.Model):
+    data_inicio = models.DateField(verbose_name="Data de plantio")
+    quantidade = models.PositiveIntegerField(verbose_name="Quantidade")
+    producao = models.ForeignKey('Producao', on_delete=models.RESTRICT)
+    
+    def __str__(self):
+        return str(self.producao) + " - " + str(self.data_inicio)
+    
+    class Meta:
+        ordering = ['-data_inicio']
+        verbose_name = "Plantio"
+        verbose_name_plural = "Plantios"
 
 # class Relatorio(models.Model):
 #     ...

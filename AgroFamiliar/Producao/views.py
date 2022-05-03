@@ -5,7 +5,7 @@ import json
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 
-from Producao.models import Producao
+from Producao.models import Producao, Plantio
 
 class CriarProducao(CreateView):
     model = Producao
@@ -31,6 +31,15 @@ def listar_producao(request):
     }
 
     return render(request, "Producao/listar.html", informacoes)
+
+def listar_plantio(request):
+    lista_plantios = Plantio.objects.all()
+
+    informacoes = {
+        'lista' : lista_plantios
+    }
+
+    return render(request, "Producao/listar_plantios.html", informacoes)
 
 def detalhes_producao(request, pk):
     producao = Producao.objects.filter(pk=pk)[0]

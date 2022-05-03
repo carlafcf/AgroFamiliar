@@ -1,7 +1,7 @@
 {% extends "Base/base.html" %}
 
 {% block titulo %}
-    Listar produções
+    Listar plantios
 {% endblock %}
 
 {% block diretorio_raiz %}
@@ -20,7 +20,7 @@
           <div class="container">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-success shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Produções</h6>
+                <h6 class="text-white text-capitalize ps-3">Plantios</h6>
             </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -28,31 +28,33 @@
                 <table class="table align-items-center mb-0" id="tabela_producoes">
                 <thead>
                     <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nome</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Observação</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Produção</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Data de plantio</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quantidade</th>
                     <th class="text-center text-secondary opacity-7"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for producao in lista %}
+                    {% for plantio in lista %}
                         <tr id="producao_{{producao.pk}}">
-                            <td> <h6 class="mb-0 text-sm">{{producao.nome}}</h6></td>
-                            <td> <p class="text-xs font-weight-bold mb-0">{{producao.observacao}}</p> </td>
+                            <td> <h6 class="mb-0 text-sm">{{plantio.producao}}</h6></td>
+                            <td> <p class="text-xs font-weight-bold mb-0">{{plantio.data_inicio}}</p> </td>
+                            <td> <p class="text-xs font-weight-bold mb-0">{{plantio.quantidade}}</p> </td>
                             <td align="center">
-                                <a type="submit" href="{% url 'producao:detalhes_producao' pk=producao.id %}">
+                                <a type="submit" href="{% url 'producao:detalhes_producao' pk=plantio.id %}">
                                     <!-- <i class="material-icons opacity-10">search</i> -->
                                     <i class="material-icons ms-auto text-success cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar">search</i>
                                 </a>
-                                <a type="submit" href="{% url 'producao:editar_producao' pk=producao.id %}">
+                                <a type="submit" href="{% url 'producao:editar_producao' pk=plantio.id %}">
                                     <!-- <i class="material-icons opacity-10">edit</i> -->
                                     <i class="material-icons ms-auto text-info cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">edit</i>
                                 </a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-{{producao.pk}}">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-{{plantio.pk}}">
                                     <!-- <i class="material-icons opacity-10">delete</i> -->
                                     <i class="material-icons ms-auto text-danger cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover">delete</i>
                                 </a>
             
-                                <div class="modal fade" id="modal-{{producao.pk}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal fade" id="modal-{{plantio.pk}}" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header bg-gradient-success">
@@ -66,14 +68,14 @@
                                                     <div class="row">
                                                         <div class="col-12 col-sm-6">
                                                             <p><strong>Você tem certeza que deseja desativar a seguinte produção:</strong></p>
-                                                            <p>Nome: {{ producao.nome }}</p>
+                                                            <p>Nome: {{ plantio.producao }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
             
                                             <div class="modal-footer bg-gradient-success">
-                                                <button class="btn bg-gradient-danger" onclick="desativar({{producao.pk}})">Desativar</button>
+                                                <button class="btn bg-gradient-danger" onclick="desativar({{plantio.pk}})">Desativar</button>
                                                 <button class="btn btn-dark" data-dismiss="modal">Cancelar</button>
             
                                             </div>
