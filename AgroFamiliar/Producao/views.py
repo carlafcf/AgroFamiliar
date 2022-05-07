@@ -13,6 +13,11 @@ class CriarProducao(CreateView):
     template_name = 'Producao/criar.html'
     success_url = reverse_lazy('producao:listar')
 
+class CriarPlantio(CreateView):
+    model = Plantio
+    fields = ['data_inicio', 'quantidade']
+    template_name = 'Producao/criar_plantio.html'
+    success_url = reverse_lazy('plantio:listar')
     # form
 
 class EditarProducao(UpdateView):

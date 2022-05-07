@@ -17,4 +17,5 @@ urlpatterns = [
     path('detalhes_producao/<int:pk>', views.detalhes_producao, name='detalhes_producao'),
 
     path('listar_plantio/', views.listar_plantio, name='listar_plantio'),
+    path('criar_plantio/', views.CriarPlantio.as_view(), name='criar_plantio'),
 ]
