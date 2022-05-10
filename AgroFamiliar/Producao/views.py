@@ -15,10 +15,9 @@ class CriarProducao(CreateView):
 
 class CriarPlantio(CreateView):
     model = Plantio
-    fields = ['data_inicio', 'quantidade']
+    fields = ['producao', 'data_inicio', 'quantidade']
     template_name = 'Producao/criar_plantio.html'
-    success_url = reverse_lazy('plantio:listar')
-    # form
+    success_url = reverse_lazy('producao:listar_plantio')
 
 class EditarProducao(UpdateView):
     model = Producao
