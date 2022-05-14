@@ -18,4 +18,5 @@ urlpatterns = [
 
     path('listar_plantio/', views.listar_plantio, name='listar_plantio'),
     path('criar_plantio/', views.CriarPlantio.as_view(), name='criar_plantio'),
+    path('editar_plantio/<int:pk>', views.EditarPlantio.as_view(), name='editar_plantio'),
 ]

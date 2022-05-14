@@ -25,6 +25,12 @@ class EditarProducao(UpdateView):
     template_name = 'Producao/editar.html'
     success_url = reverse_lazy('producao:listar')
 
+class EditarPlantio(UpdateView):
+    model = Plantio
+    fields = ['producao', 'data_inicio','quantidade']
+    template_name = 'Producao/editar_plantio.html'
+    success_url = reverse_lazy('producao:listar_plantio')
+
     # form
 
 def listar_producao(request):
