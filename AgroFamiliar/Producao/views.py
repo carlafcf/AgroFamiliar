@@ -60,6 +60,16 @@ def detalhes_producao(request, pk):
 
     return render(request, "Producao/detalhes.html", informacoes)
 
+def detalhes_plantio(request, pk):
+    plantio = Plantio.objects.filter(pk=pk)[0]
+
+    informacoes = {
+        'plantio': plantio
+    }
+
+    return render(request, "Plantio/detalhes.html", informacoes)
+
+
 def desativar_producao(request):
     print("Desativando...")
     pk = request.GET.get('pk')

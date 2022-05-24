@@ -1,0 +1,28 @@
+{% extends "Base/base.html" %}
+
+{% load bootstrap5 %}
+
+{% block titulo %}
+    Detalhes
+{% endblock %}
+
+{% block diretorio_raiz %}
+Fazenda
+{% endblock %}
+
+{% block diretorio %}
+Produção
+{% endblock %}
+
+{% block conteudo %}
+<div class="card">
+<div class="card-header pb-0 px-3">
+  <h6 class="mb-0">Plantio: {{plantio.nome}}</h6>
+</div>
+<div class="card-body pt-4 p-3">
+    <p>Nome: {{ plantio.nome }}</p>
+    <p>Observação: {{ producao.observacao }}</p>
+</div>
+</div>
+
+{% endblock %}

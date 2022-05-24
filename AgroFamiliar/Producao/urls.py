@@ -16,7 +16,8 @@ urlpatterns = [
     path('editar_producao/<int:pk>', views.EditarProducao.as_view(), name='editar_producao'),
     path('detalhes_producao/<int:pk>', views.detalhes_producao, name='detalhes_producao'),
 
-    path('listar_plantio/', views.listar_plantio, name='listar_plantio'),
     path('criar_plantio/', views.CriarPlantio.as_view(), name='criar_plantio'),
+    path('listar_plantio/', views.listar_plantio, name='listar_plantio'),
     path('editar_plantio/<int:pk>', views.EditarPlantio.as_view(), name='editar_plantio'),
+    path('detalhes_plantio/<int:pk>', views.detalhes_plantio, name='detalhes_plantio'),
 ]
