@@ -5,7 +5,7 @@ import json
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 
-from Producao.models import Producao, Plantio
+from Producao.models import Colheita, Producao, Plantio
 
 class CriarProducao(CreateView):
     model = Producao
@@ -18,6 +18,12 @@ class CriarPlantio(CreateView):
     fields = ['producao', 'data_inicio', 'quantidade']
     template_name = 'Producao/criar_plantio.html'
     success_url = reverse_lazy('producao:listar_plantio')
+    
+class CriarColheita(CreateView):
+    model = Colheita
+    fields = ['producao', 'data', 'quantidade']
+    template_name = 'Producao/criar_colheita.html'
+    success_url = reverse_lazy('producao:listar_colheita')
 
 class EditarProducao(UpdateView):
     model = Producao

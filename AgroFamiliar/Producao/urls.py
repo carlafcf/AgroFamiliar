@@ -20,4 +20,6 @@ urlpatterns = [
     path('listar_plantio/', views.listar_plantio, name='listar_plantio'),
     path('editar_plantio/<int:pk>', views.EditarPlantio.as_view(), name='editar_plantio'),
     path('detalhes_plantio/<int:pk>', views.detalhes_plantio, name='detalhes_plantio'),
+    
+    path('criar_colheita/', views.CriarColheita.as_view(), name='criar_colheita'),
 ]
