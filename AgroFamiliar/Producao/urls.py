@@ -22,4 +22,5 @@ urlpatterns = [
     path('detalhes_plantio/<int:pk>', views.detalhes_plantio, name='detalhes_plantio'),
     
     path('criar_colheita/', views.CriarColheita.as_view(), name='criar_colheita'),
+    path('editar_colheita/<int:pk>', views.EditarColheita.as_view(), name='editar_colheita'),
 ]
