@@ -28,6 +28,19 @@ class Plantio(models.Model):
         verbose_name = "Plantio"
         verbose_name_plural = "Plantios"
 
+class Colheita(models.Model):
+    data = models.DateField(verbose_name="Data da colheita")
+    quantidade = models.PositiveIntegerField(verbose_name="Quantidade")
+    producao = models.ForeignKey('Producao', on_delete=models.RESTRICT)
+    
+    def __str__(self):
+        return str(self.producao) + " - " + str(self.data)
+    
+    class Meta:
+        ordering = ['-data']
+        verbose_name = "Colheita"
+        verbose_name_plural = "Colheitas"
+
 # class Relatorio(models.Model):
 #     ...
 #     producao = models.ForeignKey('Producao', on_delete=models.RESTRICT)
